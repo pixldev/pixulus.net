@@ -1569,17 +1569,6 @@ Game.Launch=function()
 			if (isCrate) return 'onMouseOut="Game.setOnCrate(0);Game.tooltip.shouldHide=1;" onMouseOver="if (!Game.mouseDown) {Game.setOnCrate(this);Game.tooltip.dynamic=1;Game.tooltip.draw(this,'+'function(){return '+func+'();}'+',\''+origin+'\');Game.tooltip.wobble();}"';
 			return 'onMouseOut="Game.tooltip.shouldHide=1;" onMouseOver="Game.tooltip.dynamic=1;Game.tooltip.draw(this,'+'function(){return '+func+'();}'+',\''+origin+'\');Game.tooltip.wobble();"';
 		}
-		Game.attachTooltip=function(el,func,origin)
-		{
-			if (typeof func==='string')
-			{
-				var str=func;
-				func=function(str){return function(){return str;};}(str);
-			}
-			origin=(origin?origin:'middle');
-			AddEvent(el,'mouseover',function(func,el,origin){return function(){Game.tooltip.dynamic=1;Game.tooltip.draw(el,func,origin);};}(func,el,origin));
-			AddEvent(el,'mouseout',function(){return function(){Game.tooltip.shouldHide=1;};}());
-		}
 		Game.tooltip.wobble=function()
 		{
 			//disabled because this effect doesn't look good with the slight slowdown it might or might not be causing.
@@ -1658,40 +1647,6 @@ Game.Launch=function()
 				Game.externalDataLoaded=true;
 			}catch(e){}
 		}
-		
-		
-		
-		Game.attachTooltip(l('httpsSwitch'),'<div style="padding:8px;width:350px;text-align:center;font-size:11px;">You are currently playing Cookie Clicker on the <b>'+(Game.https?'HTTPS':'HTTP')+'</b> protocol.<br>The <b>'+(Game.https?'HTTP':'HTTPS')+'</b> version uses a different save slot than this one.<br>Click this lock to reload the page and switch to the <b>'+(Game.https?'HTTP':'HTTPS')+'</b> version!</div>','this');
-		AddEvent(l('httpsSwitch'),'click',function(){
-			PlaySound('snd/pop'+Math.floor(Math.random()*3+1)+'.mp3',0.75);
-			if (location.protocol=='https:') location.href='http:'+window.location.href.substring(window.location.protocol.length);
-			else if (location.protocol=='http:') location.href='https:'+window.location.href.substring(window.location.protocol.length);
-		});
-		
-		Game.attachTooltip(l('heralds'),function(){
-			var str='';
-			
-			if (!Game.externalDataLoaded) str+='Heralds couldn\'t be loaded. There may be an issue with our servers, or you are playing the game locally.';
-			else
-			{
-				if (Game.heralds==0) str+='There are no heralds at the moment. Please consider <b style="color:#bc3aff;">donating to our Patreon</b>!';
-				else
-				{
-					str+=(Game.heralds==1?'<b style="color:#bc3aff;text-shadow:0px 1px 0px #6d0096;">1 herald</b> is':'<b style="color:#fff;text-shadow:0px 1px 0px #6d0096,0px 0px 6px #bc3aff;">'+Game.heralds+' heralds</b> are')+' selflessly inspiring a boost in production for everyone, resulting in<br><b style="color:#cdaa89;text-shadow:0px 1px 0px #7c4532,0px 0px 6px #7c4532;"><div style="width:16px;height:16px;display:inline-block;vertical-align:middle;background:url(img/money.png);"></div> +'+Game.heralds+'% cookies per second</b>.';
-					str+='<div class="line"></div>';
-					if (Game.ascensionMode==1) str+='You are in a <b>Born again</b> run, and are not currently benefiting from heralds.';
-					else if (Game.Has('Heralds')) str+='You own the <b>Heralds</b> upgrade, and therefore benefit from the production boost.';
-					else str+='To benefit from the herald bonus, you need a special upgrade you do not yet own. You will permanently unlock it later in the game.';
-				}
-			}
-			str+='<div class="line"></div><span style="font-size:90%;opacity:0.6;"><b>Heralds</b> are people who have donated to our highest Patreon tier, and are limited to 100.<br>Each herald gives everyone +1% CpS.<br>Heralds benefit everyone playing the game, regardless of whether you donated.</span>';
-			
-			str+='<div style="width:31px;height:39px;background:url(img/heraldFlag.png);position:absolute;top:0px;left:8px;"></div><div style="width:31px;height:39px;background:url(img/heraldFlag.png);position:absolute;top:0px;right:8px;"></div>';
-			
-			return '<div style="padding:8px;width:300px;text-align:center;" class="prompt"><h3>Heralds</h3><div class="block">'+str+'</div></div>';
-		},'this');
-		l('heraldsAmount').innerHTML='?';
-		l('heralds').style.display='inline-block';
 		
 		Game.GrabData();
 		
