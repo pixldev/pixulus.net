@@ -7,8 +7,8 @@ Spoilers ahead.
 http://orteil.dashnet.org
 */
 
-var VERSION=69420;
-var BETA=0;
+var VERSION=2.021;
+var BETA=1;
 
 
 /*=====================================================================================
@@ -1649,6 +1649,7 @@ Game.Launch=function()
 		}
 		
 		Game.GrabData();
+		
 		
 		Game.useLocalStorage=1;
 		Game.localStorageGet=function(key)
