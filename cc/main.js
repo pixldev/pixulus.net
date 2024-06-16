@@ -1650,7 +1650,6 @@ Game.Launch=function()
 		
 		Game.GrabData();
 		
-		
 		Game.useLocalStorage=1;
 		Game.localStorageGet=function(key)
 		{
