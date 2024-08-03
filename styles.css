@@ -51,6 +51,7 @@ body {
 #clickmeplz {
   color: rgb(255, 0, 0);
   position: absolute;
+  display: block;
   bottom: 0;
 }
 
