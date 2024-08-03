@@ -1,0 +1,39 @@
+body {
+  background-color: rgb(12, 12, 12);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  text-align: center;
+  font-size: 1em;
+  font-family: Roboto Mono;
+  font-weight: 400;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+    margin-bottom: 40px;
+}
+
+h3 {
+    color: aliceblue;
+}
+
+ul {
+    color: aliceblue;
+    margin-bottom: 20px;
+}
+
+p {
+    color: aliceblue;
+}
